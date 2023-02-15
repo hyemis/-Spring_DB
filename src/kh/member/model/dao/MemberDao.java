@@ -2,11 +2,79 @@ package kh.member.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import static kh.common.jdbc.JdbcTemplate.*;
 import kh.member.model.vo.MemberVo;
 
 public class MemberDao {
+	// 내정보 보기 
+	public MemberVo myInfo(Connection conn,String id) {
+		MemberVo result = null;
+		
+		String sql = "select ID, NAME, EMAIL from test_member ";
+		sql += "where id=?";
+		
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 
+		 try {
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1,id);
+			 rs = pstmt.executeQuery();
+			 if(rs.next()) {
+				 result = new MemberVo();
+				 result.setEmail(rs.getString("email"));
+				 result.setId(rs.getString("id"));
+				 result.setName(rs.getString("name"));
+
+			 }
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 close(rs);
+			 close(pstmt);
+		 }
+		
+		return result;
+	}
+	
+	
+	
+	// 로그인 
+	public MemberVo login(Connection conn, MemberVo vo) {
+		 MemberVo result = null;
+		 String sql = "select ID, NAME, EMAIL from test_member";
+		 sql += "where id=? and passwd=?";
+		 
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 
+		 try {
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, vo.getId());
+			 pstmt.setString(2, vo.getPasswd());
+			 rs = pstmt.executeQuery();
+			 if(rs.next()) {
+				 result = new MemberVo();
+				 result.setEmail(rs.getString("email"));
+				 result.setId(rs.getString("id"));
+				 result.setName(rs.getString("name"));
+
+			 }
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 close(rs);
+			 close(pstmt);
+		 }
+		 return result;
+	}
+	
+	
+	
+	
+	
 	// enroll ctrl -> 회원가입하기 위함. 
 	// insert  - 리턴 int
 	// 회원가입 

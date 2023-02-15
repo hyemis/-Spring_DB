@@ -25,5 +25,32 @@
   	 	</form>
 	</section>
 	
+<script>
+ <!-- 이벤트를 처리하는 부분이 필요 -->
+    $("#dupId").click(checkDupId);
+    function checkDupId(){
+       $.ajax({
+          url:"<%=request.getContextPath()%>/dupid.lo" 
+            , type:"post"
+            , async:false
+            , data:{id: $("input[type=text]").first().val()} 
+          , success: function(result){
+             console.log(result);
+             if(result == 1){
+                $("#dupId").next().html("중복아이디가 있습니다. 다시 입력해주세요.");
+                $("#dupId").next().css("color","red");   
+             }else{
+                $("#dupId").next().html("사용가능 아이디입니다. ");
+                $("#dupId").next().css("color","blue");
+             }
+          }
+          , error : function(request, status, error){
+             alert(request.status);
+          }
+       , });
+    }
+<!--$.ajax();에서 달러가 객체이름이 되는거..달러=제이쿼리..?-->
+<!--오브젝트에는 정해진 key를 써야 함 url같은거-->
+</script>
 </body>
 </html>
