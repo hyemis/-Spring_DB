@@ -47,6 +47,7 @@ public class MyInfoController extends HttpServlet {
 			// 3.3 out.println(값); out.flush(); out.close();
 			request.getRequestDispatcher("/WEB-INF/view/member/myinfo.jsp").forward(request, response);
 		} else {
+			
 			// 방법 1 : 로그인 정보가 없을 때, 많은 jsp 페이지에서 같은 코드를 작성해야하는 불편함이 있음.
 			// 방법 2 : 로그인 정보가 없을 때, 하나의 error page 를 만들어 줌
 			request.setAttribute("errorMsg", "로그인되지 않아 정보를 확인할 수 없습니다.");

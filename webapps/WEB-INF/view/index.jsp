@@ -15,6 +15,9 @@
 		<button class="btn myinfo">내정보보기</button>
 	</c:if>
 	
+	<jsp:include page="/WEB-INF/view/board/boardlist.jsp"/>
+	
+	
 	<script>
 		$(".btn.login").on("click", handlerClickBtnLogin);
 		$(".btn.logout").on("click",handlerClickBtnLogout);
