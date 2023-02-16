@@ -46,6 +46,7 @@ public class MemberDao {
 		 MemberVo result = null;
 		 String sql = "select ID, NAME, EMAIL from test_member ";
 		sql += " where id=? and PASSWD=?";
+		 sql += "where id=? and passwd=?";
 		 
 		 PreparedStatement pstmt = null;
 		 ResultSet rs = null;
