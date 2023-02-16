@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.tags.shaded.org.apache.xpath.operations.String;
-
 import kh.member.model.service.MemberService;
 import kh.member.model.vo.MemberVo;
 
@@ -42,13 +40,21 @@ public class MyInfoController extends HttpServlet {
 		// 2. 나의 id 에 해당하는 정볼르 db 에서 읽어오기 ㅅ
 		if(id !=null) {
 			request.setAttribute("myinfo", new MemberService().myInfo(id));
+			// 3. 페이지 이동 및 데이터 전달 
+			// 3.1 response.sendRedirect(request.getContextPath()+"url");
+			// 3.2 request.setAttribute("name1", "값")
+			// 3.2 request.getReqeuestDispatcher().forward() jsp 로 이동 후
+			// 3.3 out.println(값); out.flush(); out.close();
+			request.getRequestDispatcher("/WEB-INF/view/member/myinfo.jsp").forward(request, response);
 		} else {
-			
+			// 방법 1 : 로그인 정보가 없을 때, 많은 jsp 페이지에서 같은 코드를 작성해야하는 불편함이 있음.
+			// 방법 2 : 로그인 정보가 없을 때, 하나의 error page 를 만들어 줌
+			request.setAttribute("errorMsg", "로그인되지 않아 정보를 확인할 수 없습니다.");
+			request.getRequestDispatcher("/WEB-INF/view/error/errorLogin.jsp").forward(request, response);
+
 		}
 		
-		// 수정 
-		request.getRequestDispatcher("/WEB-INF/view/member/myinfo.jsp").forward(request, response);
-	
+		
 	}
 
 
