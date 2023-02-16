@@ -29,17 +29,22 @@ public class MyInfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 은 없음 
-		// 2. 나의 id 에 해당하는 정볼르 db 에서 읽어오기 
-		// 수정 
+		// 1. 은 없음 / 단 session 으로부터 가져오는 작업 진행 
 		String id = null;
 		if(request.getSession().getAttribute("lgnss") != null) {
 			id = ((MemberVo)(request.getSession().getAttribute("lgnss"))).getId();
-		}
-		if(id !=null) {
-			request.setAttribute("myinfo", new MemberService().MyInfo(id));
+		}else {
+			
 		}
 		
+		// 2. 나의 id 에 해당하는 정볼르 db 에서 읽어오기 ㅅ
+		if(id !=null) {
+			request.setAttribute("myinfo", new MemberService().myInfo(id));
+		} else {
+			
+		}
+		
+		// 수정 
 		request.getRequestDispatcher("/WEB-INF/view/member/myinfo.jsp").forward(request, response);
 	
 	}

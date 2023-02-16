@@ -9,10 +9,10 @@ import kh.member.model.vo.MemberVo;
 public class MemberService {
 	
 	// 수정 
-	public MemberVo MyInfo(String id) {
+	public MemberVo myInfo(String id) {
 		 MemberVo result = null;
 		 Connection conn = getConnection();
-		 result = new MemberDao().myinfo(id);
+		 result = new MemberDao().myinfo(conn,id);
 		 close(conn);
 		 return result;
 	}

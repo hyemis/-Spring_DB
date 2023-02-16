@@ -46,11 +46,17 @@ public class LoginController extends HttpServlet {
 		//2. DB
 		MemberVo result = new MemberService().login(vo);
 		if(result != null) {
-			System.out.println("로그인 성공");
 			request.getSession().setAttribute("lgnss", result);
+			System.out.println("로그인 성공");
 		} else {
 			System.out.println("로그인 실패");
 		}
+		
+		// 3. 페이지 이동 및 데이터 전달 
+		// 3.1 response.sendRedirect(request.getContextPath()+"url");
+		// 3.2 request.setAttribute("name1", "값")
+		// 3.2 request.getReqeuestDispatcher().forward() jsp 로 이동 후
+		// 3.3 out.println(값); out.flush(); out.close();
 		response.sendRedirect(request.getContextPath()+"/");
 
 	}

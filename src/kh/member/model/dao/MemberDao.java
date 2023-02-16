@@ -9,11 +9,11 @@ import kh.member.model.vo.MemberVo;
 
 public class MemberDao {
 	// 내정보 보기 
-	public MemberVo myInfo(Connection conn,String id) {
+	public MemberVo myinfo(Connection conn,String id) {
 		MemberVo result = null;
 		
 		String sql = "select ID, NAME, EMAIL from test_member ";
-		sql += "where id=?";
+		sql += " where id=?";
 		
 		 PreparedStatement pstmt = null;
 		 ResultSet rs = null;
@@ -35,7 +35,7 @@ public class MemberDao {
 			 close(rs);
 			 close(pstmt);
 		 }
-		
+		System.out.println(result);
 		return result;
 	}
 	
@@ -44,8 +44,8 @@ public class MemberDao {
 	// 로그인 
 	public MemberVo login(Connection conn, MemberVo vo) {
 		 MemberVo result = null;
-		 String sql = "select ID, NAME, EMAIL from test_member";
-		 sql += "where id=? and passwd=?";
+		 String sql = "select ID, NAME, EMAIL from test_member ";
+		sql += " where id=? and PASSWD=?";
 		 
 		 PreparedStatement pstmt = null;
 		 ResultSet rs = null;
@@ -68,6 +68,7 @@ public class MemberDao {
 			 close(rs);
 			 close(pstmt);
 		 }
+		 System.out.println(result);
 		 return result;
 	}
 	
